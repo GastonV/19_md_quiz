@@ -1,4 +1,4 @@
-const questionsCSS = [
+export const questionsCSS = [
   {
     question: 'If we want define style for an unique element, then which css selector will we use ?',
     options: {
@@ -51,7 +51,7 @@ const questionsCSS = [
 // C.arrow
 // D.arr
 
-const questionsHTML = [
+export const questionsHTML = [
   {
     question: 'When should you use path along with file name of picture in IMG tag?',
     options: {
@@ -101,9 +101,9 @@ const questionsHTML = [
 // b. Body
 // c. both A and B
 // d. none of the above
-const questionsTypeScript = [
+export const questionsTypeScript = [
   {
-    question: 'If we want define style for an unique element, then which css selector will we use ?',
+    question: 'Bobs',
     options: {
       A: 'Id',
       B: 'text',
@@ -134,4 +134,4 @@ const questionsTypeScript = [
   }
 ];
 
-export  {questionsCSS, questionsTypeScript, questionsHTML as default} ;
+

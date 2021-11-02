@@ -2,42 +2,41 @@
 @import 'assets/styles/globals.scss';
 @import 'assets/styles/helper.scss';
 
-html,
-body {
-  height: 100%;
-  font-family: 'Indie Flower';
-}
 
-.nav{
+
+.nav {
   text-decoration: none;
   font-size: 40px;
   color: aliceblue;
   background-color: black;
-  
-  &:visited{
+
+  &:visited {
     text-decoration: none;
   }
 }
+
 .nav__container {
- 
   display: flex;
   flex-direction: row;
+  gap: 30px;
   flex-wrap: nowrap;
-  justify-content: space-around;
-  
+  justify-content: center;
   justify-items: center;
+  padding: 20px;
 }
 
 .container {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
-  align-self: center;
-  align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  max-width: 680px;
+  word-wrap: break-word;
+  min-height: 600px;
   background-image: url("https://images.typeform.com/images/dW3eTsBxKmxn/image/default-firstframe.png");
   background-repeat: no-repeat;
   background-position: center;
+  padding: 8px;
 }
 
 .quiz {
@@ -45,11 +44,10 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   gap: 20px;
- 
+
 }
 
 .quiz__question {
-  max-width: 75%;
   grid-column: 1/3;
 }
 

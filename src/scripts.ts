@@ -1,48 +1,49 @@
-import questionsCSS from './data/data';
-import questionsHTML from './data/data';
-import bbb from './data/data';
+import { questionsCSS, questionsHTML, questionsTypeScript } from './data/data';
 
 
-
+type questionTypes = typeof questionsCSS;
+const selectMenue = document.querySelectorAll(".nav");
 const quizSection = document.querySelector('.quiz');
 
-const createAnswerElement = (answer:string) => {
+let quizQuestions: questionTypes;
+
+selectMenue.forEach(nav => {
+  nav.addEventListener('click', (e) => {
+    if (nav.innerHTML === "CSS") {
+      quizQuestions = questionsCSS;
+    } else if (nav.innerHTML === "HTML") {
+      quizQuestions = questionsHTML;
+    }
+    else {
+      quizQuestions = questionsTypeScript;
+    }
+    document.querySelector('.quiz').innerHTML ="";
+    readQuestion(quizQuestions, 0);
+  });
+})
+
+const createAnswerElement = (answer: string) => {
   const button = document.createElement('button');
   button.classList.add('quiz__answer');
   button.textContent = answer;
   return button;
 };
-const createQuestionElement = (question:string) => {
+const createQuestionElement = (question: string) => {
   const headingElement = document.createElement('h2');
-  const divelEment = document.createElement('div');
-  divelEment.appendChild(headingElement);
-  divelEment.classList.add('quiz__question');
-  headingElement.classList.add('quiz__heading2');
+  headingElement.classList.add('quiz__heading2', 'quiz__question');
   headingElement.textContent = question;
-  return divelEment;
+
+  return headingElement;
 };
 
-const questionAnswered = {
-  question: 'If we want define style for an unique element, then which css selector will we use ?',
-  A: 'Id',
-  B: 'text',
-  C: 'class',
-  D: 'name',
-  correctOne: 1,
+const readQuestion = (question: questionTypes, nrQuiz: number) => {
+  quizSection.appendChild(createQuestionElement(question[nrQuiz].question));
+  const arrKeys = Object.keys(question[nrQuiz].options);
+  const arrValues = Object.values(question[nrQuiz].options);
+
+  arrKeys.forEach((options, index) => {
+    quizSection.appendChild(createAnswerElement(`${options}:  ` + arrValues[index]));
+   });
+
 };
 
-quizSection.appendChild(createQuestionElement(questionAnswered.question));
-quizSection.appendChild(createAnswerElement(questionAnswered.A));
-quizSection.appendChild(createAnswerElement(questionAnswered.B));
-quizSection.appendChild(createAnswerElement(questionAnswered.B));
-quizSection.appendChild(createAnswerElement(questionAnswered.C));
-
-document.getElementById('quiz').animate([
-  // keyframes
-  { transform: 'translateY(20px)' },
-  { transform: 'translateY(100px)' },
-  // { transform: 'rotate(15deg)' },
-], {
-  // timing options
-  duration: 1000,
-});
