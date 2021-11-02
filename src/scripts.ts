@@ -38,8 +38,8 @@ const createQuestionElement = (question: string) => {
 };
 
 const readQuestion = (question: questionTypes, nrQuiz: number) => {
-  if (nrQuiz > 2) {
-    quizSection.appendChild(createAnswerElement(`You are evaluated: ${(counterOfTruth.filter(answer => true === answer).length / nrQuiz * 100).toFixed(0)}%`));
+  if (nrQuiz > quizQuestions.length - 1) {
+    quizSection.appendChild(createAnswerElement(`You are evaluated: ${howManyCorrect(counterOfTruth, nrQuiz)}%`));
     quizSection.appendChild(createAnswerElement('Restart?')).addEventListener('click', () => {
       quizSection.innerHTML = "";
       readQuestion(quizQuestions, 0);
@@ -60,6 +60,9 @@ const readQuestion = (question: questionTypes, nrQuiz: number) => {
       });
     });
   }
-
 };
+
+const howManyCorrect = (array: boolean[], quiestionCount: number): string => {
+  return (array.filter(answer => true === answer).length / quiestionCount * 100).toFixed(0)
+}
 
