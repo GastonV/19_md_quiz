@@ -4,7 +4,7 @@ import { questionsCSS, questionsHTML, questionsTypeScript } from './data/data';
 type questionTypes = typeof questionsCSS;
 const selectMenue = document.querySelectorAll(".nav");
 const quizSection = document.querySelector('.quiz');
-
+let counterOfTruth: boolean[] = [];
 let quizQuestions: questionTypes;
 
 selectMenue.forEach(nav => {
@@ -17,7 +17,7 @@ selectMenue.forEach(nav => {
     else {
       quizQuestions = questionsTypeScript;
     }
-    document.querySelector('.quiz').innerHTML ="";
+    quizSection.innerHTML = "";
     readQuestion(quizQuestions, 0);
   });
 })
@@ -37,13 +37,28 @@ const createQuestionElement = (question: string) => {
 };
 
 const readQuestion = (question: questionTypes, nrQuiz: number) => {
-  quizSection.appendChild(createQuestionElement(question[nrQuiz].question));
-  const arrKeys = Object.keys(question[nrQuiz].options);
-  const arrValues = Object.values(question[nrQuiz].options);
+  if (nrQuiz > 2) {
+    quizSection.appendChild(createAnswerElement(`You are evaluated: ${(counterOfTruth.filter(answer => true === answer).length / nrQuiz * 100).toFixed(0)}%`));
+    quizSection.appendChild(createAnswerElement('Restart?')).addEventListener('click', () => {
+      quizSection.innerHTML = "";
+      readQuestion(quizQuestions, 0);
+    });
 
-  arrKeys.forEach((options, index) => {
-    quizSection.appendChild(createAnswerElement(`${options}:  ` + arrValues[index]));
-   });
+    counterOfTruth = [];
+  }
+  else {
+    quizSection.appendChild(createQuestionElement(question[nrQuiz].question));
+    const arrKeys = Object.keys(question[nrQuiz].options);
+    const arrValues = Object.values(question[nrQuiz].options);
+
+    arrKeys.forEach((options, index) => {
+      quizSection.appendChild(createAnswerElement(`${options}:  ` + arrValues[index])).addEventListener('click', () => {
+        counterOfTruth.push(arrKeys[index] === question[nrQuiz].answer)
+        quizSection.innerHTML = "";
+        readQuestion(question, ++nrQuiz);
+      });
+    });
+  }
 
 };
 
