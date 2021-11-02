@@ -8,6 +8,7 @@ let counterOfTruth: boolean[] = [];
 let quizQuestions: questionTypes;
 
 selectMenue.forEach(nav => {
+
   nav.addEventListener('click', (e) => {
     if (nav.innerHTML === "CSS") {
       quizQuestions = questionsCSS;
